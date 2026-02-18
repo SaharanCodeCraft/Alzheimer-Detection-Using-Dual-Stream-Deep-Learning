@@ -1,46 +1,71 @@
-# Alzheimer’s Disease Staging Using a Dual-Stream CNN–Transformer Architecture
+# 🧠 Alzheimer’s Disease Staging Using a Dual-Stream CNN–Transformer Architecture
 
-## 1. Abstract
-
-Accurate staging of Alzheimer’s Disease (AD) using structural MRI remains challenging due to subtle anatomical variations, inter-subject heterogeneity, and class imbalance. Many prior works report high accuracy but suffer from slice-level evaluation, data leakage, or limited generalization analysis.
-
-This project develops a subject-level dual-stream deep learning framework that integrates convolutional neural networks (CNNs) and Vision Transformers (ViTs) for robust multi-class Alzheimer’s staging. The model is evaluated under strict patient-wise conditions to ensure methodological rigor and reproducibility.
-
-Target Classes:
-- CN – Cognitively Normal  
-- LMCI – Late Mild Cognitive Impairment  
-- AD – Alzheimer’s Disease  
+![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![PyTorch](https://img.shields.io/badge/Framework-PyTorch-red.svg)
+![Transformers](https://img.shields.io/badge/Architecture-CNN%20%2B%20ViT-green.svg)
+![Status](https://img.shields.io/badge/Status-Active%20Research-yellow.svg)
 
 ---
 
-## 2. Dataset
+## 1️⃣ Abstract
 
-- Source: ADNI-derived structural MRI dataset  
-- Total Subjects: 639  
-  - CN: 195  
-  - LMCI: 311  
-  - AD: 133  
+Accurate staging of Alzheimer’s Disease (AD) using structural MRI remains challenging due to:
 
-Key Protocol Decisions:
+- Subtle anatomical variations  
+- Inter-subject heterogeneity  
+- Severe class imbalance  
+
+Many prior works report high accuracy but suffer from:
+
+- Slice-level evaluation  
+- Data leakage  
+- Limited generalization analysis  
+
+This project develops a **subject-level dual-stream deep learning framework** integrating Convolutional Neural Networks (CNNs) and Vision Transformers (ViTs) for robust multi-class Alzheimer’s staging.
+
+The model is evaluated under strict **patient-wise experimental conditions** to ensure methodological rigor and reproducibility.
+
+### 🎯 Target Classes
+
+- **CN** – Cognitively Normal  
+- **LMCI** – Late Mild Cognitive Impairment  
+- **AD** – Alzheimer’s Disease  
+
+---
+
+## 2️⃣ Dataset
+
+- **Source:** ADNI-derived structural MRI dataset  
+- **Total Subjects:** 639  
+
+| Class | Subjects |
+|--------|----------|
+| CN     | 195      |
+| LMCI   | 311      |
+| AD     | 133      |
+
+### 🔒 Key Protocol Decisions
+
 - Strict patient-wise splitting  
 - Fixed number of slices per subject  
 - No augmented subject duplication  
 - No slice-level leakage  
 
-The dataset is not included in this repository due to licensing and storage constraints.
+> ⚠️ The dataset is not included in this repository due to licensing and storage constraints.
 
 ---
 
-## 3. Research Motivation
+## 3️⃣ Research Motivation
 
-Existing literature demonstrates:
+Existing literature commonly demonstrates:
 
-- High performance often reported using slice-level splits  
+- High performance using slice-level splits  
 - Heavy emphasis on binary classification (AD vs CN)  
 - Limited exploration of robust deep feature fusion  
 - Insufficient methodological validation  
 
-This work addresses these limitations through:
+### This Work Addresses These Limitations Through:
+
 - Subject-level modeling  
 - Dual-stream representation learning  
 - Controlled architectural comparisons  
@@ -48,39 +73,52 @@ This work addresses these limitations through:
 
 ---
 
-## 4. Methodology
+## 4️⃣ Methodology
 
-### Phase 1 — Exploratory Analysis & Baselines
-- CNN feature extraction (ResNet50)
-- Classical classifiers (SVM / Logistic Regression)
-- 5-fold cross-validation
+### 🔹 Phase 1 — Exploratory Analysis & Baselines
 
-### Phase 2 — Transformer Integration
-- ViT-B/16 backbone (ImageNet pretrained)
-- Subject-level feature aggregation
-- Comparative evaluation with CNN baseline
-
-### Phase 3 — Feature Fusion Experiments
-- CNN-only evaluation
-- ViT-only evaluation
-- CNN + ViT concatenation baseline
-
-### Phase 4 — Efficient Tensor Dataset Construction
-- Conversion from PNG slice loading to tensor-based dataset
-- GPU-optimized batching
-- Stabilized training pipeline
-
-### Phase 5 — Dual-Stream End-to-End Architecture
-- Parallel CNN and ViT feature extractors
-- Feature-level fusion layer
-- Class-weighted cross-entropy optimization
-- Partial fine-tuning strategy
+- CNN feature extraction (ResNet50)  
+- Classical classifiers (SVM / Logistic Regression)  
+- 5-fold cross-validation  
 
 ---
 
-## 5. Preliminary Results
+### 🔹 Phase 2 — Transformer Integration
 
-Frozen Feature Baselines (5-fold Cross-Validation):
+- ViT-B/16 backbone (ImageNet pretrained)  
+- Subject-level feature aggregation  
+- Comparative evaluation with CNN baseline  
+
+---
+
+### 🔹 Phase 3 — Feature Fusion Experiments
+
+- CNN-only evaluation  
+- ViT-only evaluation  
+- CNN + ViT concatenation baseline  
+
+---
+
+### 🔹 Phase 4 — Efficient Tensor Dataset Construction
+
+- Migration from PNG slice loading to tensor-based dataset  
+- GPU-optimized batching  
+- Stabilized training pipeline  
+
+---
+
+### 🔹 Phase 5 — Dual-Stream End-to-End Architecture
+
+- Parallel CNN and ViT feature extractors  
+- Feature-level fusion layer  
+- Class-weighted cross-entropy optimization  
+- Partial fine-tuning strategy  
+
+---
+
+## 5️⃣ Preliminary Results
+
+### 📊 Frozen Feature Baselines (5-Fold Cross-Validation)
 
 | Model | Accuracy | Macro-F1 |
 |--------|----------|----------|
@@ -88,17 +126,23 @@ Frozen Feature Baselines (5-fold Cross-Validation):
 | ViT-B/16 | ~0.42 | ~0.40 |
 | CNN + ViT (Concat) | ~0.57 | ~0.55 |
 
-End-to-End Dual-Stream Model (Partial Fine-Tuning):
+---
 
-- Stable training achieved
-- Validation Macro-F1 ≈ 0.46
-- Identified slice-level aggregation as a key performance bottleneck
+### ⚡ End-to-End Dual-Stream Model (Partial Fine-Tuning)
 
-These findings motivate the exploration of attention-based aggregation and improved fusion mechanisms.
+- Stable training achieved  
+- Validation Macro-F1 ≈ 0.46  
+- Identified slice-level aggregation as a key performance bottleneck  
+
+These findings motivate the exploration of:
+
+- Attention-based aggregation  
+- Improved fusion mechanisms  
+- Representation alignment strategies  
 
 ---
 
-## 6. Experimental Rigor
+## 6️⃣ Experimental Rigor
 
 - Strict patient-wise data splitting  
 - No data leakage  
@@ -106,32 +150,41 @@ These findings motivate the exploration of attention-based aggregation and impro
 - Controlled baseline comparisons  
 - Transparent reporting of intermediate performance  
 
+This project emphasizes **methodological integrity over inflated metrics**.
+
 ---
 
-## 7. Ongoing Work
+## 7️⃣ Ongoing Work
 
 - Attention-based slice aggregation  
 - Contrastive embedding alignment  
-- Improved dual-stream fusion mechanisms  
+- Advanced dual-stream fusion mechanisms  
 - External validation on independent datasets  
 - Explainability via Grad-CAM and transformer attention rollout  
 
 ---
 
-## 8. Reproducibility
+## 8️⃣ Reproducibility
 
-Environment:
-- Python 3.9+
-- PyTorch
-- timm
-- scikit-learn
-- NumPy
-- Pandas
+### Environment
+
+- Python 3.9+  
+- PyTorch  
+- timm  
+- scikit-learn  
+- NumPy  
+- Pandas  
 
 All experiments are reproducible given access to the dataset and preprocessing pipeline.
 
 ---
 
-## 9. Research Status
+## 9️⃣ Research Status
 
-This project is under active development as part of an academic research study focused on robust MRI-based Alzheimer’s staging using dual-stream representation learning.
+This project is under active development as part of an academic research study focused on robust MRI-based Alzheimer’s staging using **dual-stream representation learning**.
+
+The current direction prioritizes:
+
+- Generalization robustness  
+- Methodological transparency  
+- Clinically meaningful multi-class discrimination  
